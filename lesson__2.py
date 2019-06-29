@@ -1,3 +1,4 @@
+# Второе занятие
 a = int(input())
 b = int(input())
 
