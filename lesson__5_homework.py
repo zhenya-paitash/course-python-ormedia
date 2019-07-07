@@ -1,4 +1,5 @@
 import calendar  # для 10 и 12 задания
+import random as r  # для генерации рандомных чисел
 
 
 # Задания:
@@ -16,7 +17,7 @@ def two(b):
     return b
 
 
-print('2: ', two(7))
+print('2: ', two(r.randint(-10_000, 10_000)))
 
 
 # 3. Напишем функцию, которая определяет параметр на чётность. Если чётное число принтим (‘yes’) в ином случае (‘no’)
@@ -27,23 +28,23 @@ def three(с):
         return 'no'
 
 
-print('3: ', three(20))
+print('3: ', three(r.randint(-1_000, 1_000)))
 
 
 # 4.Пишем функцию, принимающую два аргумента.
 #   После чего проверим, если первое число больше 10, принтим (‘да’). Если меньше(‘нет’)
 def four(d, e):
     if d > 10:
-        print('4:  да')
+        print('4:  да/yes')
     else:
-        print('4:  нет')
+        print('4:  нет/no')
 
 
-four(5, 10)
+four(r.randint(-1_000, 1_000), r.randint(-1_000, 1_000))
 
 # 5. Написать лямбда функцию, которая делит по модулю(%) два аргумента
 five = lambda f, g: f % g
-print('5:  остаток от деления', five(18, 4))
+print('5:  remainder of the division: ', five(r.randint(-1_000, 1_000), r.randint(-1_000, 1_000)))
 
 
 # 6. Создадим функцию с простыми командами. Обернём её в декоратор, который бы дополнял возможности функции
@@ -57,24 +58,25 @@ def decor(fix):
 
 
 @decor  # равносильно строчке: six_decor = decor(six_decor)
-def six_decor(i=11):
+def six_decor(i=r.randint(-200, 500)):
     i = i // 3
-    print('6: ', i, end=', ')
+    print('6: ', i, end='     ')
     return i
 
 
-print(six_decor(11))
+print(six_decor(r.randint(-1_000, 1_000)))
 
 # 7. Использовать функцию map и filter
-j = [6, 1, 34, 22, 7, 5, 4, 18, 12]
-
+j = []
+for i in range(r.randint(5, 20)):
+    j.append(r.randint(-10_000, 10_000))
 
 def seven_map(k):
-    return int(k / 10)
+    return int(k % 2)
 
 
 def seven_filter(l):
-    return l >= 10
+    return l >= 0
 
 
 print('7: ', list(map(seven_map, j)), list(filter(seven_filter, j)))
@@ -94,14 +96,15 @@ def unclean(name):  # нечистая функция
 
 print('8: ', clean('Mia'), unclean('Jane'), m)
 # 9. Сделать функцию поиска минимума и максимума в списке
-list_nine = [5, 6, 1, 6, 0, 4, 9, 4, 1]
-
+list_nine = []
+for i in range(r.randint(5, 20)):
+    list_nine.append(r.randint(-10_000, 10_000))
 
 def nine(n):
     return max(n), min(n)
 
 
-print('9:  max & min =', nine(list_nine))
+print(f"9:  max & min = {nine(list_nine)}")
 
 
 # 10. Написать функцию, которая определяет, является ли год високосным.
@@ -110,27 +113,23 @@ def cal(year):
     return calendar.isleap(year)  # определяет, является ли год високосным(ст.модуль calendar)
 
 
-print('10:', cal(2020))
+print(f"10: {cal(r.randint(-1_000, 2_500))} (is leap / non-leap)")
 
 
 # 11. Написать функцию season, принимающую 1 аргумент — номер месяца (от 1 до 12), и возвращающую время года,
 #     которому этот месяц принадлежит (зима, весна, лето или осень)
 def season(o):
-    if o == 12 or o == 1 or o == 2:
-        print('    winter/зима')
-    elif o == 3 or o == 4 or o == 5:
-        print('    spring/весна')
-    elif o == 6 or o == 7 or o == 8:
-        print('    summer/лето')
-    elif o == 9 or o == 10 or o == 1:
-        print('    autumn/осень')
+    if o in range(3, 6):
+        return 'spring/весна'
+    elif o in range(6, 9):
+        return 'summer/лето'
+    elif o in range(9, 12):
+        return 'fall/осень'
     else:
-        print('    Введен неверный месяц !')
-    return o
+        return 'winter/зима'
 
 
-print('11:')
-season(7)
+print(f"11: {season(r.randint(1, 12))}")
 
 
 # 12. Написать функцию date, принимающую 3 аргумента — день, месяц и год.
@@ -139,25 +138,30 @@ def date(year, month, day):
     year, month, day = day, month, year
     try:
         if calendar.weekday(year, month, day) != False:  # try - except - если выдает ошибку
-            print('    True')
+            return 'TRUE, there is such a date'
         else:
-            print('    False')
+            return 'FALSE, such a date is not in the calendar'
     except:
-        print('    False')
+        return 'FALSE, such a date is not in the calendar'
 
 
-print('12:')
-date(21, 5, 1993)
+print(f"12: {date(r.randint(0, 35), r.randint(0, 14), r.randint(0, 2500))}")  # <== произвольная дата
 # 13. Список [16, -17, 2, 78.7, False, False, {‘True’: True}, 555, 12, 23, 42, ‘DD’]
 #     Функция, принимает на вход список -выбирает из него все int и float -
 #     составить из него новый список, отсортированный от наименьшего значения большему
-last = [16, -17, 2, 78.7, False, False, {‘True’: True}, 555, 12, 23, 42, ‘DD’]
-try:
-    def thirteen(*p, **r):
-        print(p)
-        print(r)
+last = [16, -17, 2, 78.7, False, False, {'True': True}, 555, 12, 23, 42, 'DD']
 
-except:
-    print('error')
-last.sort(key=)
-thirteen(last)
+
+def int_float(last):
+    new_last = []
+    try:
+        for i in range(len(last)):
+            if type(last[i]) == int or type(last[i]) == float:
+                new_last.append(last[i])
+        return sorted(new_last)
+
+    except:
+        return 'ERROR'
+
+
+print('13:', int_float(last))
