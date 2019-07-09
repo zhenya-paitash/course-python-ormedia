@@ -11,8 +11,7 @@ def get_html(url):
 def get_total_pages(html):
     soup = BeautifulSoup(html, "lxml")
     pages = soup.find('div', class_="page__footer").find('a',
-                                                         class_="toggle-menu__item-link toggle-menu__item-link_pagination toggle-menu__item-link_bordered").get(
-        'href')
+        class_="toggle-menu__item-link toggle-menu__item-link_pagination toggle-menu__item-link_bordered").get('href')
     total_pages = pages.split('page')[1].split('/')[0]
     return total_pages  # возвращает кол-во страниц
 
@@ -20,7 +19,7 @@ def get_total_pages(html):
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     title = soup.find('div', class_="posts_list").find_all('h2', class_="post__title")
-    print(len(title))
+    print(f"----------------------------------На этой странице {len(title)} статей----------------------------------")
     for ti in title:
         try:
             txt = ti.find('a', class_="post__title_link").text
