@@ -12,7 +12,7 @@ def main():
     for i in result:
         while len(i['Cur_Name']) < 40:
             i['Cur_Name'] += '_'
-        print(f"За {i['Date'].split('T')[0]}, цена на 1 {i['Cur_Abbreviation']}",
+        print(f"За {i['Date'].split('T')[0]} число, цена на 1 {i['Cur_Abbreviation']}",
               f"{i['Cur_Name']} составила {i['Cur_OfficialRate']} BYN белорусских рублей.")
 
 
