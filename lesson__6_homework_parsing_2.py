@@ -19,7 +19,7 @@ def get_total_pages(html):
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     title = soup.find('div', class_="posts_list").find_all('h2', class_="post__title")
-    print(f"----------------------------------На этой странице {len(title)} статей----------------------------------")
+    print(f"--------------------------------На этой странице {len(title)} статей--------------------------------\n")
     for ti in title:
         try:
             txt = ti.find('a', class_="post__title_link").text
@@ -34,7 +34,7 @@ def main():
     total_pages = get_total_pages(get_html(url))
     for i in range(1, int(total_pages) + 1):  # поиск по всем страницам
         url_gen = url + dop_url + str(i)
-        print(url_gen)
+        print('\n', url_gen, '\n')
         html = get_html(url_gen)
         text = get_page_data(html)
 
