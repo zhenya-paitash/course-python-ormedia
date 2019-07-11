@@ -3,6 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 
 
+global total_state
+total_state = 0
+
 def get_html(url):
     r = requests.get(url)
     return r.text
@@ -19,7 +22,9 @@ def get_total_pages(html):
 def get_page_data(html):
     soup = BeautifulSoup(html, 'lxml')
     title = soup.find('div', class_="posts_list").find_all('h2', class_="post__title")
-    print(f"--------------------------------На этой странице {len(title)} статей--------------------------------\n")
+    print(f"__________На этой странице {len(title)} статей__________________________________________________\n")
+    global total_state
+    total_state += len(title)
     for ti in title:
         try:
             txt = ti.find('a', class_="post__title_link").text
@@ -34,9 +39,11 @@ def main():
     total_pages = get_total_pages(get_html(url))
     for i in range(1, int(total_pages) + 1):  # поиск по всем страницам
         url_gen = url + dop_url + str(i)
-        print('\n', url_gen, '\n')
+        print('\n\n\n', url_gen, end=' ')
         html = get_html(url_gen)
-        text = get_page_data(html)
+        get_page_data(html)
+    print("\n____________________________________ За этот месяц на habr.com вышло {} статей _____________________"
+          "______________________________________".format(total_state))
 
 
 if __name__ == "__main__":
