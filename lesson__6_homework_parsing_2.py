@@ -1,5 +1,4 @@
 # Задание: Получить список статей хабра за месяц ( https://habr.com/top/monthly/ )
-# Шестое занятие. Парсинг Хабр статей за месяц
 import requests
 from bs4 import BeautifulSoup
 
